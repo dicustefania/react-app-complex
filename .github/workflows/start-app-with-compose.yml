@@ -1,0 +1,43 @@
+name: Fibonacci app  
+
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+on:
+  workflow_dispatch:
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+#    - name: Build the Docker image
+#      run: docker build . --file Dockerfile.dev --tag react_app_dev:latest
+#      shell: bash
+#      run: echo $pwd
+    - name: test docker compose
+      run: docker-compose version
+      shell: bash
+    - name: Docker compose UP 
+      run: docker-compose -f docker-compose.yml --build -d up 
+      shell: bash
+    - name: Test 1
+      run: |
+        docker ps
+        sleep 60
+    - name: Docker-compose-down
+      run: docker-compose down -v
+    - name: Test2
+      run: |
+        sleep 60
+        docker ps
+    - name: Docker compose UP 
+      run: docker-compose -f docker-compose.yml -d up
+    - name: Test3
+      run: |
+        sleep 120
+        docker ps
