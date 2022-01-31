@@ -41,3 +41,4 @@ jobs:
       run: |
         sleep 120
         docker ps
+        curl -v localhost:3050
