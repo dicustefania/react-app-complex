@@ -8,7 +8,7 @@ services:
     image: 'redis:latest'
   api:
     build:
-      Dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.dev
       context: './server'
     volumes:
       - /app/node_modules            # don't try to overwrite this directory from the container
@@ -23,14 +23,14 @@ services:
       - PGPORT=5432                    # from the doc ( default values)
   client:
     build:
-      Dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.dev
       context: './client'
     volumes:
       - /app/node_modules            # don't try to overwrite this directory from the container
       - ./client:/app
   worker:       
     build:
-      Dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.dev
       context: './worker'
     volumes:
       - /app/node_modules            # don't try to overwrite this directory from the container
@@ -38,10 +38,10 @@ services:
   nginx:
     restart: 'always'
     build:
-      Dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      -'3050:80'
+      - '3050:80'
     depends_on:
       - api
       - client
