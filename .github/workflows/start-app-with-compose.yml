@@ -23,7 +23,7 @@ jobs:
       run: docker-compose version
       shell: bash
     - name: Docker compose UP 
-      run: docker-compose -f docker-compose.yml -d up 
+      run: docker-compose -f docker-compose.yml up -d 
       shell: bash
     - name: Test 1
       run: |
@@ -36,7 +36,7 @@ jobs:
         sleep 60
         docker ps
     - name: Docker compose UP 
-      run: docker-compose -f docker-compose.yml -d up
+      run: docker-compose -f docker-compose.yml up -d
     - name: Test3
       run: |
         sleep 120
