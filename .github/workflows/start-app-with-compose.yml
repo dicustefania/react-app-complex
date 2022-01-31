@@ -41,4 +41,11 @@ jobs:
       run: |
         sleep 120
         docker ps
-        curl -v localhost:3050/otherpage
+        curl -v localhost:3050/api/values/all
+    - name: Test4
+      run: docker exec -it react-app-complex_nginx_1 systemctl status ngnix
+    - name: test5
+      run: docker exec -it react-app-complex_nginx_1 ps aux
+    - name: test6
+      run: docker exec -it react-app-complex_nginx_1 cat /var/log/nginx/error.log
+      
