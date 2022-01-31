@@ -39,7 +39,7 @@ services:
     restart: 'always'
     build:
       dockerfile: Dockerfile.dev
-      context: ./nginx
+      context: './nginx'
     ports:
       - '3050:80'
     depends_on:
