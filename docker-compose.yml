@@ -1,0 +1,44 @@
+version: '3'
+services:
+  postgres:                        #advanced, enterprise class open source relational database that supports both SQL (relational) and JSON (non-relational) querying.
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+  redis:
+    image: 'redis:latest'
+  api:
+    build:
+      Dockerfile: Dockerfile.dev
+      context: './server'
+    volumes:
+      - /app/node_modules            # don't try to overwrite this directory from the container
+      - ./server:/app                # server folder is mapped to /app from the container ( if we modify from /server, we'll see the modif in /app also)
+    environment:
+      - REDIS_HOST=redis             #the name of the container
+      - REDIS_PORT=6379              # from the doc ( default values)
+      - PGUSER=postgres              # from the doc ( default values)
+      - PGHOST=postgres             #the name of the container
+      - PGDATABASE=postgres         # from the doc ( default values)
+      - PGPASSWORD=postgres_password  # from the doc ( default values)
+      - PGPORT=5432                    # from the doc ( default values)
+  client:
+    build:
+      Dockerfile: Dockerfile.dev
+      context: './client'
+    volumes:
+      - /app/node_modules            # don't try to overwrite this directory from the container
+      - ./client:/app
+  worker:       
+    build:
+      Dockerfile: Dockerfile.dev
+      context: './worker'
+    volumes:
+      - /app/node_modules            # don't try to overwrite this directory from the container
+      - ./worker:/app
+  nginx:
+    restart: 'always'
+    build:
+      Dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      -'3050:80'
