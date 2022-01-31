@@ -1,0 +1,32 @@
+name: Build images for Dev env 
+
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+on:
+  workflow_dispatch:
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker Client image
+      run: cd client;docker build . --file Dockerfile.dev --tag client_dev:latest
+    - name: Run container client 
+      run: docker run client_dev:latest
+      shell: bash
+    - name: Build the Docker Server image
+      run: cd server;docker build . --file Dockerfile.dev --tag server_dev:latest
+    - name: Run container server 
+      run: docker run server_dev:latest
+      shell: bash
+    - name: Build the Docker Worker image
+      run: cd worker;docker build . --file Dockerfile.dev --tag worker_dev:latest
+    - name: Run container worker 
+      run: docker run worker_dev:latest
+      shell: bash
