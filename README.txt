@@ -11,7 +11,7 @@ to remove the /api and to remain only the request /values/.. send to the express
 (because in the code the paths are set without /api)
 
 Browser requests come to nginx .
-Nginx does the routhing between Client( react-app) or Server ( express server or api server).
+Nginx does the routing between Client( react-app) or Server ( express server or api server).
 React server communicate with Express Server.
 Express Server communicate with Redis and Postgress. 
 Redis communicates with worker.
