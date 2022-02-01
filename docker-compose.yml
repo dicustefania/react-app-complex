@@ -32,6 +32,9 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: './worker'
+    environment:
+      - REDIS_HOST=redis             #the name of the container
+      - REDIS_PORT=6379              # from the doc ( default values)
     volumes:
       - /app/node_modules            # don't try to overwrite this directory from the container
       - ./worker:/app

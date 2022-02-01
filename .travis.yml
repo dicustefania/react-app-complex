@@ -2,21 +2,33 @@ sudo: required
 services:
   - docker
   
-before_install:
-  - docker build -t stefaniadicu/react-test -f ./client/Dockerfile.dev ./client  
+#before_install:
+#  - docker build -t stefaniadicu/react-test -f ./client/Dockerfile.dev ./client  
 
-script:
-  - docker run -e CI=true stefaniadicu/react-test npm test
+#script:
+#  - docker run -e CI=true stefaniadicu/react-test npm test
   
-after_success:
-  - docker build -t stefaniadicu/complex-client ./client
-  - docker build -t stefaniadicu/complex-server ./server
-  - docker build -t stefaniadicu/complex-nginx ./nginx
-  - docker build -t stefaniadicu/complex-worker ./worker
+#after_success:
+#  - docker build -t stefaniadicu/complex-client ./client
+#  - docker build -t stefaniadicu/complex-server ./server
+#  - docker build -t stefaniadicu/complex-nginx ./nginx
+#  - docker build -t stefaniadicu/complex-worker ./worker
 #login to docker cli
-  - echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_ID" --password-stdin
+#  - echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_ID" --password-stdin
 #take this images and push them to Docker hub
-  - docker push stefaniadicu/complex-client
-  - docker push stefaniadicu/complex-server
-  - docker push stefaniadicu/complex-nginx
-  - docker push stefaniadicu/complex-worker
+#  - docker push stefaniadicu/complex-client
+#  - docker push stefaniadicu/complex-server
+#  - docker push stefaniadicu/complex-nginx
+#  - docker push stefaniadicu/complex-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: complex-docker
+  env: Complexdocker-env
+  bucket_name: elasticbeanstalk-us-east-1-878131601842
+  bucket_path: complex-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
