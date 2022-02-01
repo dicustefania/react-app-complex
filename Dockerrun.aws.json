@@ -5,19 +5,19 @@
 	  "name": "client",
 	  "image": "stefaniadicu/complex-client",
 	  "hostname": "client",
-	  "essential": false,
+	  "essential": false
 	},
     {
 	  "name": "server",
 	  "image": "stefaniadicu/complex-server",
 	  "hostname": "api",
-	  "essential": false,
+	  "essential": false
 	},
     {
 	  "name": "worker",
 	  "image": "stefaniadicu/complex-worker",
 	  "hostname": "worker",
-	  "essential": false,
+	  "essential": false
 	},
 	{
 	  "name": "nginx",
