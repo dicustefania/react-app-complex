@@ -1,6 +1,20 @@
 {
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
+	{
+	  "name": "redis",
+	  "image": "redis",
+	  "hostname": "redis",
+	  "essential": false,
+	  "memory": 128
+	},
+	{
+	  "name": "postgres",
+	  "image": "postgres",
+	  "hostname": "postgres",
+	  "essential": false,
+	  "memory": 128
+	},
     {
 	  "name": "client",
 	  "image": "stefaniadicu/complex-client",
@@ -31,21 +45,7 @@
 	  "portMappings": [{"hostPort": 80,"containerPort": 80}],
 	  "links": ["client","server"],
 	  "memory": 128
-	},
-	{
-	  "name": "redis",
-	  "image": "redis",
-	  "hostname": "redis",
-	  "essential": false,
-	  "memory": 128
-	},
-	{
-	  "name": "postgres",
-	  "image": "postgres",
-	  "hostname": "postgres",
-	  "essential": false,
-	  "memory": 128
-	}	
+	}
  ]
   
 }
