@@ -13,14 +13,16 @@
 	  "image": "stefaniadicu/complex-server",
 	  "hostname": "api",
 	  "essential": false,
-	  "memory": 128
+	  "memory": 128,
+	  "links": ["redis","postgres"]
 	},
     {
 	  "name": "worker",
 	  "image": "stefaniadicu/complex-worker",
 	  "hostname": "worker",
 	  "essential": false,
-	  "memory": 128
+	  "memory": 128,
+	  "links": ["redis"]
 	},
 	{
 	  "name": "nginx",
@@ -29,8 +31,21 @@
 	  "portMappings": [{"hostPort": 80,"containerPort": 80}],
 	  "links": ["client","server"],
 	  "memory": 128
-	}
-	
+	},
+	{
+	  "name": "redis",
+	  "image": "redis",
+	  "hostname": "redis",
+	  "essential": false,
+	  "memory": 128
+	},
+	{
+	  "name": "postgres",
+	  "image": "postgres",
+	  "hostname": "postgres",
+	  "essential": false,
+	  "memory": 128
+	}	
  ]
   
 }
